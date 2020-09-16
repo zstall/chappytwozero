@@ -2,11 +2,11 @@
 Chappy now uses sqlite for a db and has some api functionality. Will need to do some more cleanup here, but wanted to get the ball rolling.
 
 ## Step 1: Create a virtual environment
-With python3 create
-    - ython3 -m venv venv
-    - pip install twilio
-    - pip install flask
-    - pip install flask-restful
+With python3 create 
+- python3 -m venv venv
+- pip install twilio
+- pip install flask
+- pip install flask-restful
 
 ## Step 2: Create Database for Chappy:
 - Edit your all_chores.csv to add or subtract chores. 
