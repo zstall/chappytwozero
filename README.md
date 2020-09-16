@@ -4,6 +4,7 @@ For more general Chappy informatoin and setup (setting up Twilio and running Cha
 
 **NOTE** for testing, to quite down the debuggin out put, instead of setting trace = True, in chap.py on line 194 I hardcoded trace to True.
 `send_message(chrs, u[1], u[3], wk_chrs, day, True)`
+
 **NOTE** this will print out the messages to the command line, and NOT send any sms messages through Twilio. Should change True to trace, and use the trace variable after done testing.
 
 ## Step 1: Create a virtual environment
