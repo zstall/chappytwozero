@@ -120,8 +120,10 @@ def main():
         print(chrs_array)
 
     else:
-        insertUser(1, 'Zach', 'Stall', '9704203609', 'zstall4@gmail.com')
-        insertUser(2, 'Caitlin', 'Kelly', '7209330451', 'caitlin.margaret.kelly@gmail.com')
+        # add as many users as you like
+        # inputs are (id, 'fnames', 'lname', 'phones', 'email')
+        insertUser(1, 'test1', 'user1lastname', '15555555555', 'test1@mailcom')
+        insertUser(2, 'test2', 'user2lastname', '17777777777', 'test2@mailcom')
         insertChores(chrs_array)
 
 
