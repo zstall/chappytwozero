@@ -4,6 +4,8 @@ Chappy now uses sqlite for a db and has some api functionality. Will need to do 
 ## Step 1: Create a virtual environment
 With python3 create 
 - python3 -m venv venv
+- source venv/bin/activate
+Install dependencies
 - pip install twilio
 - pip install flask
 - pip install flask-restful
