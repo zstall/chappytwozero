@@ -2,7 +2,7 @@
 Chappy now uses sqlite for a db and has some api functionality. Will need to do some more cleanup here, but wanted to get the ball rolling.
 For more general Chappy informatoin and setup (setting up Twilio and running Chappy in a ec2 environment) please review the setup steps [here](https://github.com/zstall/chappy)
 
-**NOTE** for testing, to quite down the debuggin out put, instead of setting trace = True, in chap.py on line 194 I hardcoded trace to True.
+**NOTE** for testing, to quiet down the debugging output, instead of setting trace = True, in chap.py on line 194 I hardcoded trace to True.
 `send_message(chrs, u[1], u[3], wk_chrs, day, True)`
 
 **NOTE** this will print out the messages to the command line, and NOT send any sms messages through Twilio. Should change True to trace, and use the trace variable after done testing.
