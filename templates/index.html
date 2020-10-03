@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>chappy</title>
+  </head>
+  <body>
+    <h1>"CHAPPY</h1>
+    <h5>Get ya chores done</h5>
+    <ul id="dic">
+    {% for name in chrs %}
+        <ul><h2>{{ name }}</h2></ul>
+        {% for chr in chrs[name] %}
+          <li> {{ chr }} </li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+  </body>
+</html>
