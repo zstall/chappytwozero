@@ -132,6 +132,7 @@ def update_db(update_statement, trace=False):
 
 def chore_done(chr_name):
     chr = query_db("SELECT * FROM chores WHERE chore = '" + chr_name + "'")
+    print(chr)
     if chr[0][4] == 'False':
         update_db("UPDATE chores set done = 'True' WHERE id = " + str(chr[0][0]))
     else:
@@ -182,7 +183,7 @@ def main():
     day = datetime.datetime.today().weekday()
     # Add names to chores for the week
     build_user_chores(chrs, usr)
-    
+
     if day == 1:
         reset_chores('weekly')
         wk_chrs = query_db("select * from chores where schedule = 'weekly'", trace)
@@ -192,9 +193,6 @@ def main():
         chrs = query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'daily'")
         wk_chrs = query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'weekly'")
         send_message(chrs, u[1], u[3], wk_chrs, day, True)
-
-
-    chore_done('Clean kitchen')
 
 
 if __name__=="__main__":

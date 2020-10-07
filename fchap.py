@@ -1,24 +1,98 @@
 import chap
-from flask import Flask, request, render_template
+import os
+from flask import Flask, request, render_template, session, redirect, g,url_for
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
 api = Api(app)
+app.secret_key = os.urandom(24)
 
+@app.before_request
+def before_request():
+    g.user = None
+
+    if 'user' in session:
+        g.user = session['user']
 
 @app.route("/")
-def hello():
+def home():
+    return render_template('index.html')
 
-    chores = chap.query_db("select name, chore from chores")
-    names = chap.query_db("select fname from users")
-    dic = {}
-    for nm in names:
-        dic[nm[0]]=[]
 
-    for nm in chores:
-        dic[nm[0]]+=[nm[1]]
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session.pop('user', None)
 
-    return render_template('index.html', chrs=dic)
+        usr = chap.query_db("select username,password from users")
+        dic = {}
+
+        for nm in usr:
+            dic[nm[0]]=nm[1]
+
+        if request.form['user'] in dic and dic[str(request.form['user'])] == request.form['password']:
+
+        #if request.form['password'] == 'password':
+
+            session['user'] = request.form['user']
+            return redirect(url_for('chores'))
+
+    return render_template('login.html')
+
+
+@app.route("/chores", methods=['GET', 'POST'])
+def chores():
+
+    if g.user == 'admin':
+        chores = chap.query_db("select name, chore from chores where done = 'False'")
+        names = chap.query_db("select fname from users")
+        dic_login = {}
+        for nm in names:
+            if nm[0] == 'admin':
+                pass
+            else:
+                dic_login[nm[0]]=[]
+        for nm in chores:
+            if nm[0] == 'admin':
+                pass
+            else:
+                dic_login[nm[0]]+=[nm[1]]
+        return render_template('chores.html', chrs=dic_login, user=session['user'])
+
+    else:
+        fname = chap.query_db("select fname from users where username = '"+g.user+"'")
+        nm = fname[0][0]
+        chores = chap.query_db("select chore from chores where done = 'False' and name = '"+nm+"'")
+        done_chores = chap.query_db("select chore from chores where done = 'True' and name = '"+nm+"'")
+        dic_login = {}
+        dic_done = {}
+        dic_login[nm]=[]
+        dic_done[nm]=[]
+        for chr in chores:
+            dic_login[nm]+=chr
+        for chr in done_chores:
+            dic_done[nm]+=chr
+
+        return render_template('chores.html', chrs=dic_login, dchrs=dic_done, user=session['user'])
+
+@app.route("/update", methods=['GET', 'POST'])
+def update_chores():
+    if request.method == 'POST':
+        chores = (request.form.getlist('chr'))
+        for c in chores:
+            print(c)
+            chap.chore_done(c)
+        return redirect(url_for('chores'))
+
+    return redirect(url_for('chores'))
+
+@app.route("/incomplete", methods=['GET', 'POST'])
+def incomplete_chores():
+    if request.method == 'POST':
+        chores = (request.form.getlist('chr'))
+        for c in chores:
+            chap.chore_done(c)
+        return redirect(url_for('chores'))
 
 class choreDone(Resource):
     def get(self, chr_name):
@@ -32,4 +106,4 @@ api.add_resource(choreDone, '/choredone/<chr_name>')
 api.add_resource(resetChores, '/resetchores/<sched>')
 
 if __name__ == '__main__':
-     app.run()
+    app.run(debug=True)
