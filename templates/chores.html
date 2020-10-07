@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="task">
+  <h1>CHAPPY</h1>
+  <h3>Get ya chores done</h3>
+  {% set counter = [1] %}
+  {% for name in chrs %}
+    <h3>{{ name }} - Chores</h3>
+    <form action="/update" method="POST">
+    {% for chr in chrs[name] %}
+      <input id='label-{{ counter[0] }}' type="checkbox" name="chr" value="{{ chr }}"/>
+      <label for="label-{{ counter[0] }}">
+        <h2>
+          {{ chr }}
+          <span>{{ name }}</span>
+        </h2>
+      </label>
+      {% if counter.append(counter.pop() + 1) %}{% endif %}
+    {% endfor %}
+      <input type="submit"/>
+    </form>
+    <h3>{{ name }} - Completed Chores</h3>
+    <form action="/incomplete" method="POST">
+    {% for chr in dchrs[name] %}
+      <input id='label-{{ counter[0] }}' type="checkbox" name="chr" value="{{ chr }}"/>
+      <label for="label-{{ counter[0] }}">
+        <h2>
+          {{ chr }}
+          <span>{{ name }}</span>
+        </h2>
+      </label>
+      {% if counter.append(counter.pop() + 1) %}{% endif %}
+    {% endfor %}
+      <input type="submit"/>
+    </form>
+    {% if counter.append(counter.pop() + 1) %}{% endif %}
+  {% endfor %}
+</div>
+{% endblock %}
