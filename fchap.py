@@ -46,18 +46,34 @@ def chores():
     if g.user == 'admin':
         chores = chap.query_db("select name, chore from chores where done = 'False'")
         names = chap.query_db("select fname from users")
+        done_chores = chap.query_db("select name, chore from chores where done = 'True'")
         dic_login = {}
+        dic_done = {}
         for nm in names:
             if nm[0] == 'admin':
                 pass
             else:
                 dic_login[nm[0]]=[]
+        for nm in names:
+            if nm[0] == 'admin':
+                pass
+            else:
+                dic_done[nm[0]]=[]
+
         for nm in chores:
             if nm[0] == 'admin':
                 pass
             else:
                 dic_login[nm[0]]+=[nm[1]]
-        return render_template('chores.html', chrs=dic_login, user=session['user'])
+
+        print(done_chores)
+        print(dic_done)
+        for nm in done_chores:
+            if nm[0] == 'admin':
+                pass
+            else:
+                dic_done[nm[0]]+=[nm[1]]
+        return render_template('chores.html', chrs=dic_login, dchrs=dic_done, user=session['user'])
 
     else:
         fname = chap.query_db("select fname from users where username = '"+g.user+"'")

@@ -12,18 +12,32 @@ html, body {
 }
 /* body */
 body{
-  background: #4d244e;
+  background: #FFB52E;
   font-family: sans-serif;
-  border-top: 5px solid #aa8e8d;
 }
 /* title */
-h1, h3{
-  color: #aa8e8d;
+h1, h4 {
+  color: #fff;
   text-align: center;
   font-size: 32px;
   font-weight: 900;
 }
+
+/* header */
+
+h3 {
+  color: #a9a9a9;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+}
+
 /* tasks */
+.card {
+	width: 40%;
+	margin: auto;
+}
+
 .tasks{
   width: 300px;
   height: 405px;
@@ -36,13 +50,18 @@ h1, h3{
 input[type=checkbox] {
   display: none;
 }
+
+.card-header {
+	border-bottom: 1px solid #00CDFF;
+}
+
 label{
-  background: #ae5f75;
+  background: #fff;
   height: 69px;
   width: 100%;
   display: block;
-  border-bottom: 1px solid #2C3E50;
-  color: #fff;
+  border-bottom: 1px solid #00CDFF;
+  color: #a9a9a9;
   text-transform: capitalize;
   font-weight: 900;
   font-size: 11px;
@@ -56,18 +75,18 @@ label{
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-label h2 span{
+label h5 span{
   display: block;
   font-size: 12px;
   text-transform: capitalize;
   font-weight: normal;
-  color: #fff;
+  color: #a9a9a9;
 }
 label:before{
   content:"";
   width: 20px;
   height: 20px;
-  background: #fff;
+  background: #aaa;
   display: block;
   position: absolute;
   border-radius: 100%;
@@ -107,9 +126,9 @@ label:before{
 #label-28:checked ~ label[for=label-28],
 #label-29:checked ~ label[for=label-29],
 #label-30:checked ~ label[for=label-30]{
-  background: #6d335c;
-  border-bottom: 1px solid #34495E;
-  color: #d37b79;
+  background: #fff;
+  border-bottom: 1px solid #00CDFF;
+  color: #DF362D;
 }
 #label-0:checked ~ label[for=label-0] h2 span,
 #label-1:checked ~ label[for=label-1] h2 span,
@@ -142,7 +161,7 @@ label:before{
 #label-28:checked ~ label[for=label-28] h2 span,
 #label-29:checked ~ label[for=label-29] h2 span,
 #label-30:checked ~ label[for=label-30] h2 span{
-  color: #f6bd66;
+  color: #DF362D;
 }
 #label-0:checked ~ label[for=label-0]:before,
 #label-1:checked ~ label[for=label-1]:before,
@@ -177,6 +196,3 @@ label:before{
 #label-30:checked ~ label[for=label-30]:before{
   background: url("/static/images/chk.png") no-repeat center center;
 }
-
-/* ----- Footer ----- */
-/*
