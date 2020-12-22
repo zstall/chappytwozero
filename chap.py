@@ -61,6 +61,8 @@ def send_message(chr, nm, phone, wchr, day, trace=False):
         print(msg)
         print("********* END MESSAGE DEBUG ************")
         print()
+        return(msg)
+
 
     # if trace is false, send message!
     else:
@@ -72,6 +74,7 @@ def send_message(chr, nm, phone, wchr, day, trace=False):
             )
 
         print(message.status)
+
 
 # pass in any query statement to this function and it will return the results
 # tables are:

@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Each Chappy chore will be represented as a task -->
 <div class="task">
   <h1>CHAPPY</h1>
   <h4>Get ya chores done</h4>
+  {% if user == 'admin' %}
+    <div class="card border-info mb-3">
+      <div class="card-header">
+        <h3>Admin - Tools</h3>
+          <form action="/admintools" method="POST">
+            <button type="submit" class="btn btn-primary">Reset Chores and Send Message</button>
+          </form>
+      </div>
+    </div>
+  {% endif %}
   {% set counter = [1] %}
   {% for name in chrs %}
   <div class="card border-info mb-3">

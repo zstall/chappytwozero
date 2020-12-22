@@ -1,5 +1,6 @@
 import chap
 import os
+import datetime
 from flask import Flask, request, render_template, session, redirect, g,url_for
 from flask_restful import Resource, Api
 
@@ -35,15 +36,16 @@ def login():
         #if request.form['password'] == 'password':
 
             session['user'] = request.form['user']
-            return redirect(url_for('chores'))
+            usr = request.form['user']
+            return redirect(url_for('chores', user=usr))
 
     return render_template('login.html')
 
 
-@app.route("/chores", methods=['GET', 'POST'])
-def chores():
+@app.route("/chores/<user>", methods=['GET', 'POST'])
+def chores(user):
 
-    if g.user == 'admin':
+    if user == 'admin':
         chores = chap.query_db("select name, chore from chores where done = 'False'")
         names = chap.query_db("select fname from users")
         done_chores = chap.query_db("select name, chore from chores where done = 'True'")
@@ -66,14 +68,12 @@ def chores():
             else:
                 dic_login[nm[0]]+=[nm[1]]
 
-        print(done_chores)
-        print(dic_done)
         for nm in done_chores:
             if nm[0] == 'admin':
                 pass
             else:
                 dic_done[nm[0]]+=[nm[1]]
-        return render_template('chores.html', chrs=dic_login, dchrs=dic_done, user=session['user'])
+        return render_template('chores.html', chrs=dic_login, dchrs=dic_done, user=user)
 
     else:
         fname = chap.query_db("select fname from users where username = '"+g.user+"'")
@@ -96,11 +96,12 @@ def update_chores():
     if request.method == 'POST':
         chores = (request.form.getlist('chr'))
         for c in chores:
-            print(c)
             chap.chore_done(c)
-        return redirect(url_for('chores'))
+        usr = session['user']
+        return redirect(url_for('chores', user=usr))
 
-    return redirect(url_for('chores'))
+    usr = session['user']
+    return redirect(url_for('chores', user=usr))
 
 @app.route("/incomplete", methods=['GET', 'POST'])
 def incomplete_chores():
@@ -108,7 +109,37 @@ def incomplete_chores():
         chores = (request.form.getlist('chr'))
         for c in chores:
             chap.chore_done(c)
-        return redirect(url_for('chores'))
+        usr = session['user']
+        return redirect(url_for('chores', user=usr))
+
+@app.route("/admintools", methods=['GET','POST'])
+def run_chappy():
+    trace = False
+
+    chap.reset_chores('daily')
+    chap.reset_chores('weekly')
+
+    # Get array of users; (id, fname, lname, phone, email)
+    usr = chap.query_db("select * from users", trace)
+    usr.remove((4, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin'))
+    # Get array of daily chores (id, chores, interval, done (true or false))
+    chrs = chap.query_db("select * from chores where schedule = 'daily'")
+    # Add names to chores for the Daily
+    chap.build_user_chores(chrs, usr)
+    # Get day of the week Monday = 0 Sunday = 6
+    day = datetime.datetime.today().weekday()
+    # Add names to the chores for weekly
+    wk_chrs = chap.query_db("select * from chores where schedule = 'weekly'")
+    chap.build_user_chores(wk_chrs, usr)
+
+    msg = []
+    for u in usr:
+        chrs = chap.query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'daily'")
+        wk_chrs = chap.query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'weekly'")
+        # the last var in this function is debug mode, set to True this will not send sms message
+        msg += [u[1],chrs,wk_chrs]
+
+    return render_template('resetsuccess.html', users = usr, chr = chrs, d = day, wchr = wk_chrs, message = msg)
 
 class choreDone(Resource):
     def get(self, chr_name):
