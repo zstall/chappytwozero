@@ -3,7 +3,9 @@ CREATE TABLE users (
  fname TEXT NOT NULL,
  lname TEXT NOT NULL,
  phone TEXT NOT NULL,
- email TEXT NOT NULL
+ email TEXT NOT NULL,
+ username TEXT NOT NULL,
+ password TEXT NOT NULL
 );
 
 CREATE TABLE chores (

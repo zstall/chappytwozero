@@ -40,17 +40,17 @@ def create_tables():
             sqliteConnection.close()
             print("sqlite connection is closed")
 
-def insertUser(id, fname, lname, phone, email):
+def insertUser(id, fname, lname, phone, email, username, password):
     try:
         sqliteConnection = sqlite3.connect('chappydb.db')
         cursor = sqliteConnection.cursor()
         print("Connected to SQLite")
 
         sqlite_insert_with_param = """INSERT INTO users
-                          (id, fname, lname, phone, email)
-                          VALUES (?, ?, ?, ?, ?);"""
+                          (id, fname, lname, phone, email, username, password)
+                          VALUES (?, ?, ?, ?, ?, ?, ?);"""
 
-        data_tuple = (id, fname, lname, phone, email)
+        data_tuple = (id, fname, lname, phone, email, username, password)
         cursor.execute(sqlite_insert_with_param, data_tuple)
         sqliteConnection.commit()
         print("Python Variables inserted successfully into users table")
@@ -122,8 +122,9 @@ def main():
     else:
         # add as many users as you like
         # inputs are (id, 'fnames', 'lname', 'phones', 'email')
-        insertUser(1, 'test1', 'user1lastname', '15555555555', 'test1@mailcom')
-        insertUser(2, 'test2', 'user2lastname', '17777777777', 'test2@mailcom')
+        insertUser(1, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin')
+        insertUser(2, 'user1', 'user1', '15555555555', 'user1@mailcom', 'user1', 'password')
+        insertUser(3, 'user2', 'user2', '17777777777', 'user2@mailcom', 'user2', 'password')
         insertChores(chrs_array)
 
 
