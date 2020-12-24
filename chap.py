@@ -188,7 +188,7 @@ def main():
     # Add names to chores for the week
     build_user_chores(chrs, usr)
 
-    if day == 2:
+    if day == 0:
         reset_chores('weekly')
         wk_chrs = query_db("select * from chores where schedule = 'weekly'", trace)
         build_user_chores(wk_chrs, usr)

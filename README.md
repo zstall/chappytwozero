@@ -27,6 +27,7 @@ Install dependencies
 - Update config.py file with twilio account info
 
 ## Step 4: Test chap.py
+- When first time configureing chap.py make sure you set day equal to the day of the week currently. After first time setup this should be changed to 0 or Monday. (where Monday is 0 and Sunday is 6) 
 - Run chap.py comes in debug mode. Will output chores and people to command line
 - Run with : python chap.py
 - Turn off debug mode to send messages via twilio:
