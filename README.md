@@ -19,7 +19,7 @@ Install dependencies
 ## Step 2: Create Database for Chappy:
 - Edit your all_chores.csv to add or subtract chores. 
 - Currently setup for daily and weekly chores
-- Edit createChappyDB and add users. Can set any number of users
+- Edit createChappyDB and add users. Can set any number of users NOTE: The admin user createChappyDB.py is used to review all users, and this entry is also used in chap.py. If you make any changes to the admin user in createChappyDB.py be sure to update them in chap.py on line 183.
 - When ready run: python createChappyDB.py
 
 ## Step 3: Setup twilio
