@@ -180,7 +180,7 @@ def main():
     reset_chores('daily')
     # Get array of users; (id, fname, lname, phone, email)
     usr = query_db("select * from users", trace)
-    usr.remove((0, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin'))
+    usr.remove((1, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin'))
     # Get array of daily chores (id, chores, interval, done (true or false))
     chrs = query_db("select * from chores where schedule = 'daily'", trace)
     # Get day of the week Monday = 0 Sunday = 6
@@ -188,7 +188,7 @@ def main():
     # Add names to chores for the week
     build_user_chores(chrs, usr)
 
-    if day == 1:
+    if day == 2:
         reset_chores('weekly')
         wk_chrs = query_db("select * from chores where schedule = 'weekly'", trace)
         build_user_chores(wk_chrs, usr)

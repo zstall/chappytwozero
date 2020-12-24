@@ -121,7 +121,7 @@ def run_chappy():
 
     # Get array of users; (id, fname, lname, phone, email)
     usr = chap.query_db("select * from users", trace)
-    usr.remove((4, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin'))
+    usr.remove((1, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin'))
     # Get array of daily chores (id, chores, interval, done (true or false))
     chrs = chap.query_db("select * from chores where schedule = 'daily'")
     # Add names to chores for the Daily
