@@ -132,13 +132,26 @@ def run_chappy():
     wk_chrs = chap.query_db("select * from chores where schedule = 'weekly'")
     chap.build_user_chores(wk_chrs, usr)
 
-    msg = []
+    # message and wk_chrs are dictionaries that hold all daily and weekly chores with the users name as the key
+    # There are used in the resetsuccess html template.
+    msg = {}
+    wk_chrs = {}
     for u in usr:
         chrs = chap.query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'daily'")
-        wk_chrs = chap.query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'weekly'")
+        wk_chr = chap.query_db("SELECT * FROM chores where name = '" + str(u[1]) + "' and schedule = 'weekly'")
         # the last var in this function is debug mode, set to True this will not send sms message
-        msg += [u[1],chrs,wk_chrs]
+        msg[u[1]]=chrs
+        wk_chrs[u[1]]=wk_chr
 
+    '''
+    # Trouble shooting, this is how the loops work in the template:
+    for k in msg:
+        print(k)
+        for c in msg[k]:
+            print(c[1])
+        for w in wk_chrs[k]:
+            print(w[1])
+    '''
     return render_template('resetsuccess.html', users = usr, chr = chrs, d = day, wchr = wk_chrs, message = msg)
 
 class choreDone(Resource):

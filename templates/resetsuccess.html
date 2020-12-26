@@ -5,13 +5,13 @@
 <h1>Reset Complete</h1>
 <h4>Chores updated and message sent:</h4>
   <div class="card">
-    {% for nm in users %}
+    {% for k in message %}
     <div class="card-header">
-      <h6>{{ nm[5] }} here are your Chores: </h6>
+      <h6>{{ k }} here are your Chores: </h6>
     </div>
       <div class="card-body">
         <ul>
-          {% for c in chr %}
+          {% for c in message[k] %}
             <li>{{ c[1] }}</li>
           {% endfor %}
         </ul>
@@ -19,16 +19,16 @@
         <p>********************************************</p>
         <h6>Here is your weekly chores:</h6>
         <ul>
-          {% for c in wchr %}
-            <li>{{ c[1] }}</li>
+          {% for w in wchr[k] %}
+            <li>{{ w[1] }}</li>
           {% endfor %}
         </ul>
       {% else %}
         <p>********************************************</p>
         <h6>Don't forget your weekly chores:</h6>
         <ul>
-          {% for c in wchr %}
-            <li>{{ c[1] }}</li>
+          {% for w in wchr[k] %}
+            <li>{{ w[1] }}</li>
           {% endfor %}
         </ul>
       {% endif %}

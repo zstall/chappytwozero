@@ -123,8 +123,9 @@ def main():
         # add as many users as you like
         # inputs are (id, 'fnames', 'lname', 'phones', 'email')
         insertUser(1, 'admin', 'admin', '5555555555', 'admin@noreply.com', 'admin', 'admin')
-        insertUser(2, 'user1', 'user1', '15555555555', 'user1@mailcom', 'user1', 'password')
-        insertUser(3, 'user2', 'user2', '17777777777', 'user2@mailcom', 'user2', 'password')
+        insertUser(2, 'Zach', 'Stall', '15555555555', 'user1@mailcom', 'zstall', 'password')
+        insertUser(3, 'Caitlin', 'Kelly', '17777777777', 'user2@mailcom', 'ckelly', 'password')
+        insertUser(4, 'Sam', 'Stall', '17777777777', 'user2@mailcom', 'sstall', 'password')
         insertChores(chrs_array)
 
 
