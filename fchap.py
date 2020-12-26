@@ -144,6 +144,7 @@ def run_chappy():
         wk_chrs[u[1]]=wk_chr
 
     '''
+    # Below is for testing only
     # Trouble shooting, this is how the loops work in the template:
     for k in msg:
         print(k)
