@@ -1,2 +1,7 @@
 venv/
-chappydb.db
+.serverless/
+__pycache__/
+.pytest_cache/
+*.pyc
+.idea/
+.DS_Store
