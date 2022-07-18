@@ -44,7 +44,7 @@ def login():
 
 @app.route("/chores/<user>", methods=['GET', 'POST'])
 def chores(user):
-
+    
     if user == 'admin':
         chores = chap.query_db("select name, chore from chores where done = 'False'")
         names = chap.query_db("select fname from users")
@@ -76,7 +76,7 @@ def chores(user):
         return render_template('chores.html', chrs=dic_login, dchrs=dic_done, user=user)
 
     else:
-        fname = chap.query_db("select fname from users where username = '"+g.user+"'")
+        fname = chap.query_db("select fname from users where username = '"+g.user+"' where fname <> 'admin'")
         nm = fname[0][0]
         chores = chap.query_db("select chore from chores where done = 'False' and name = '"+nm+"'")
         done_chores = chap.query_db("select chore from chores where done = 'True' and name = '"+nm+"'")
@@ -114,7 +114,7 @@ def incomplete_chores():
 
 @app.route("/admintools", methods=['GET','POST'])
 def run_chappy():
-    trace = False
+    trace = True
 
     chap.reset_chores('daily')
     chap.reset_chores('weekly')

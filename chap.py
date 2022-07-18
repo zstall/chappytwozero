@@ -176,7 +176,7 @@ def reset_chores(sched):
     return(query_db("SELECT * FROM chores"))
 
 def main():
-    trace = False
+    trace = True
     reset_chores('daily')
     # Get array of users; (id, fname, lname, phone, email)
     usr = query_db("select * from users", trace)

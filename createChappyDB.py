@@ -126,6 +126,7 @@ def main():
         insertUser(2, 'Zach', 'Stall', '15555555555', 'user1@mailcom', 'zstall', 'password')
         insertUser(3, 'Caitlin', 'Kelly', '17777777777', 'user2@mailcom', 'ckelly', 'password')
         insertUser(4, 'Sam', 'Stall', '17777777777', 'user2@mailcom', 'sstall', 'password')
+        insertUser(5, 'Test', 'User', '12345678911', 'use4@maicom', 'tuser', 'password')
         insertChores(chrs_array)
 
 
